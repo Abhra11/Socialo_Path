@@ -2,7 +2,7 @@ const router = require("express").Router();
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
 
-//register/signUp
+// register/signUp
 router.post("/register", async (req, res) => {
   try {
     //salt and hash the password using bcrypt
