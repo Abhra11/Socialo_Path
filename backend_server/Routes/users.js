@@ -57,15 +57,15 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-//to follow an use
+//to follow an user
 router.put("/:id/follow", async (req, res) => {
   if (req.body.userId != req.params.id) {
     try {
-      const user = await User.findById(req.body.userId);
-      const currUser = await User.findById(req.params.id);
+      const user = await User.findById(req.params.id);
+      const currUser = await User.findById(req.body.userId);
       if (!user.followers.includes(req.body.userId)) {
-        await user.updateOne({ $push: { followers: req.params.id } });
-        await currUser.updateOne({ $push: { followings: req.body.userId } });
+        await user.updateOne({ $push: { followers: req.body.userId } });
+        await currUser.updateOne({ $push: { followings: req.params.id } });
         res.status(200).json("Followed a user");
       } else {
         res.status(403).json("You have already followed this user");
